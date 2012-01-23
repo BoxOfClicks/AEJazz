@@ -6,7 +6,7 @@
 //
 // To use:
 // 1. Create a CSV file with column headings matching the name of text fields you will later create in After Effects.
-//      As well as setting the text you can also create headings 'in' and 'out' which set the in and out points of
+//      There are reserved headings 'in' and 'out' which set the in and out points of
 //      the duplicated comps as they go. Timecodes are in seconds.
 // 2. Go into After Effects and create a composition that you wish to replicate.
 // 3. Design the comp, create one or more text fields to be automatically populated.
@@ -25,7 +25,7 @@
 // NOTES:
 // There are currently some hard coded elements that have aided in my own tasks. You can customise them here or else please 
 // contribute to the github project. Currently if your comp contains a layer named 'background' it will attempt to resize it to the size
-// of the populated text field. The paddings for that are all hard-coded (see lines approx. 230-240). If you don't want this to happen
+// of the populated text field. The paddings for that are all hard-coded (see lines approx. 200-230). If you don't want this to happen
 // simply rename your layer to something other than background or change this code.
 // The background sizing is also currently programmed for just one text layer.
 // The auto generated comp's dimensions and duration are all just defaults specified below. This shouldn't matter as you can
@@ -183,8 +183,8 @@ function init()
     }
 
     app.endUndoGroup();
-//    clearOutput();
-//    write( "Operation complete." );
+    clearOutput();
+    write( "Operation complete." );
 }
 
 function findReplaceLayerValue( $theComp, $fieldName, $replaceValue )
