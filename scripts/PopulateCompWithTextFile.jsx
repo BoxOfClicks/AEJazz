@@ -1,11 +1,35 @@
-﻿//
-// populateCompWithTextFile.jsx
-//
-
+﻿// PopulateCompWithTextFile.jsx
 //
 // This script reads a user specified csv file and
 // creates a duplicate of the selected comp for each line of text,
 // automatically populating the text inside.
+//
+// To use:
+// 1. Create a CSV file with column headings matching the name of text fields you will later create in After Effects.
+//      As well as setting the text you can also create headings 'in' and 'out' which set the in and out points of
+//      the duplicated comps as they go. Timecodes are in seconds.
+// 2. Go into After Effects and create a composition that you wish to replicate.
+// 3. Design the comp, create one or more text fields to be automatically populated.
+// 4. Ensure the label name of your text field(s) matches the headings in your CSV file. I would recommend avoiding
+//      spaces, special characters etc.
+// 5. Select the comp in the project panel and be sure that it has focus. Go to File->Scripts->Run Script File... and run this file.
+// 6. A dialogue box will then ask for the CSV file you created earlier.
+//
+// 7. This should have now produced a comp called '_auto_generated_text_comp' and a corresponding folder. 
+//      Feel free to treat this as a normal composition - either copy the contents or put the entire comp into a composition of your own.
+//      If you wish to update the text at a later date and preserve the linking please do NOT rename the auto generated compositions.
+//
+// 8. To update the text (Perhaps your CSV file has additional or changed entries), repeat steps 5 & 6. If all goes well
+//      anywhere you have used the previously generated comps will be automatically updated.
+//
+// NOTES:
+// There are currently some hard coded elements that have aided in my own tasks. You can customise them here or else please 
+// contribute to the github project. Currently if your comp contains a layer named 'background' it will attempt to resize it to the size
+// of the populated text field. The paddings for that are all hard-coded (see lines approx. 230-240). If you don't want this to happen
+// simply rename your layer to something other than background or change this code.
+// The background sizing is also currently programmed for just one text layer.
+// The auto generated comp's dimensions and duration are all just defaults specified below. This shouldn't matter as you can
+// change the comp's properties at any time.
 
 {
 
@@ -49,7 +73,7 @@ function init()
             var compW = 1024; // comp width
             var compH = 576; // comp height
             var compL = 99;  // comp length (seconds)
-            var compRate = 25; // comp frame rate
+            var compRate = 30; // comp frame rate
             var compBG = [48/255,63/255,84/255] // comp background color
             var myItemCollection = app.project.items;
 
@@ -179,27 +203,15 @@ function findReplaceLayerValue( $theComp, $fieldName, $replaceValue )
 //            write( "Yes, is" + theComp.layers[ f ].name +" instanceof TextLayer ? " + ( theComp.layers[ f ] instanceof TextLayer ) );
             if ( $theComp.layers[ f ] instanceof TextLayer )
             {
-//                writeLn( "1The layer is a TextLayer. Currently: " + theComp.layers[ f ].text );
-//                writeLn( "2The layer is a TextLayer. Currently: " + theComp.layers[ f ].sourceText );
-                if ( $theComp.layers[ f ].text.sourceText )
-                {
-//                    writeLn( "3The layer is a TextLayer. Currently: " + String( theComp.layers[ f ].text.sourceText.value ) );
-                }
                 $theComp.layers[ f ].text.property("sourceText").setValue( "A test for heighty." );
                 destHeight = $theComp.layers[ f ].sourceRectAtTime( 0, false ).height + 20;
-                destY = ( $theComp.layers[ f ].height - destHeight ) / 2 + 10;
+                destY = ( $theComp.layers[ f ].height - destHeight ) / 2;
                 
                 $theComp.layers[ f ].text.property("sourceText").setValue( $replaceValue );
                 destWidth = $theComp.layers[ f ].sourceRectAtTime( 0, false ).width + 30;
                 destX = $theComp.layers[ f ].transform.position.value[ 0 ];
-                if ( $theComp.layers[ f ].sourceRectAtTime( 0, false ).height > destHeight - 20 )
-                {
-                    destHeight = $theComp.layers[ f ].sourceRectAtTime( 0, false ).height + 20;
-                    destY = ( $theComp.layers[ f ].height - destHeight ) / 2 + 10;
-                }
             
-                writeLn( $theComp.layers[ f ].height + " & " + destHeight + "->" + (($theComp.layers[ f ].height - destHeight ) / 2) );
-                $theComp.layers[ f ].transform.property( "Position" ).setValue( [ destX, destY ] );
+//                $theComp.layers[ f ].transform.property( "Position" ).setValue( [ destX, destY ] );
             }
         
             break;

@@ -1,4 +1,4 @@
 text,in,out
-First example text,1,4
-Second text example,5,9
+First example text,0,4.5
+Second text example,4.5,10
 "Some additional text here, comma's and everything!",10,15

@@ -1,5 +1,5 @@
 ﻿//
-// createTextLayersFromFile.jsx
+// AnimateSelectedLayers.jsx
 //
 
 //
