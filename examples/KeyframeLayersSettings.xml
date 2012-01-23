@@ -1,0 +1,12 @@
+//Property, Times, Values, Random, Eases
+//Property: Use exact property understood  by after effects and encapsulate with quotes.
+//Values: Enclose values in quotes to treat values as offsets rather than absolutes
+//Times, Values and Eases - pass as arrays using Square brackets []
+//Times: Use 'in' for the inPoint of the layer, 'out' for the outPoint.
+//Eases: Set an ease in and an ease out for EACH key frame.
+// N.B. To set multiple properties just write a new line
+
+
+"opacity",[ in, in + 1, out - 0.6, out ], [ 0, 100, 100, 0 ], [ 0, 0 ], [ easeIn, easeOut ], [ easeOut, easeNone ], [ easeNone, easeIn ], [ easeIn, easeOut ]
+"position",[ in, out ], [ "-25"|"0", "25"|"0" ], [ -50|0, 20|0 ], [ easeNone, easeNone ], [ easeNone, easeNone ]
+//"scale", [in, in + 1], [0|0|0, 100|100|100], [ 0|0|0, 0|0|0 ], [ easeIn, easeOut ], [ easeOut, easeIn ]
